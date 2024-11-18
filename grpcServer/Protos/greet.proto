@@ -1,0 +1,24 @@
+// Versiyon belirlemeye yarýyor.
+syntax = "proto3";
+// Oluþturulan arayüzler bu namespace altýnda oluþturulur.
+option csharp_namespace = "grpcServer";
+
+// Pakete ismini veriyoruz
+package greet;
+
+
+service Greeter {
+  //Burda SayHello adýnda serverda bir metot olacak . Clientte bu metodu çaðaracak.Bu metodun veri türü hello request türünden olacak. Geriyede HelloReply verecek.
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+// Client ile server arasýnda iletilecek olan veri türlerini temsil eder
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+
