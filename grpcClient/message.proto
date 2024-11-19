@@ -1,0 +1,25 @@
+﻿// Versiyon belirlemeye yarıyor.
+syntax = "proto3";
+// Oluşturulan arayüzler bu namespace altında oluşturulur.
+option csharp_namespace = "grpcMessageClient";
+
+// Pakete ismini veriyoruz
+package message;
+
+
+service Message {
+  //Burda SayHello adında serverda bir metot olacak . Clientte bu metodu çağaracak.Bu metodun veri türü hello request türünden olacak. Geriyede HelloReply verecek.
+  rpc SendMessage (MessageRequest) returns (stream MessageResponse);
+}
+
+// Client ile server arasında iletilecek olan veri türlerini temsil eder
+message MessageRequest {
+  string name = 1;
+  string message = 2;
+}
+
+// The response message containing the greetings.
+message MessageResponse {
+  string message = 1;
+}
+

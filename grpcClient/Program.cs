@@ -1,5 +1,7 @@
 ﻿using Grpc.Net.Client;
+using grpcMessageClient;
 using grpcServer;
+
 
 
 class Program
@@ -7,17 +9,26 @@ class Program
     static async Task Main(string[] args)
     {
         // Kanalı oluşturun (gRPC sunucusuna bağlanmak için)
-        using var channel = GrpcChannel.ForAddress("https://localhost:7109");
+         var channel = GrpcChannel.ForAddress("https://localhost:5225");
 
-        // GreeterClient'ı başlatın
-        var greetClient = new Greeter.GreeterClient(channel);
+        var messageClient = new Message.MessageClient(channel);
 
-        HelloReply result = await greetClient.SayHelloAsync(new HelloRequest
-        {
-            Name = "Emreden Selamlar"
+       MessageResponse response =   messageClient.SendMessage (new MessageRequest{
+            Message = "Merhaba",
+            Name = "EMRECAN"
         });
 
-        System.Console.WriteLine(result.Message);
+        System.Console.WriteLine(response.Message);
+
+        // // GreeterClient'ı başlatın
+        // var greetClient = new Greeter.GreeterClient(channel);
+
+        // HelloReply result = await greetClient.SayHelloAsync(new HelloRequest
+        // {
+        //     Name = "Emreden Selamlar"
+        // });
+
+        // System.Console.WriteLine(result.Message);
 
 
 
